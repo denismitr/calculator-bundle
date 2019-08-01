@@ -1,0 +1,35 @@
+{
+    "name": "denismitr/calculator-bundle",
+    "description": "Calculator Bundle",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Denis Mitrofanov",
+            "email": "denis.mitr@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2.9",
+        "ext-ds": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5|^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Denismitr\\CalculatorBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Denismitr\\CalculatorBundle\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
+}
