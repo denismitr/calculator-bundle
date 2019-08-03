@@ -107,9 +107,14 @@ final class DijkstraTwoStackAlgorithm implements Evaluator
     /**
      * @param string $expression
      * @return array
+     * @throws BadOperationException
      */
     private function parseString(string $expression): array
     {
+        if (strlen($expression) === 0) {
+            throw BadOperationException::because("Expression is empty");
+        }
+
         return explode(' ', $expression);
     }
 

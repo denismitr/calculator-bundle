@@ -73,12 +73,31 @@ class DijkstraAlgorithmTest extends TestCase
     /**
      * @test
      */
+    public function it_will_throw_on_empty_expression()
+    {
+        $this->expectException(BadOperationException::class);
+        $this->expectExceptionMessage("Expression is empty");
+
+        $this->algorithm->evaluate("");
+    }
+
+    /**
+     * @test
+     */
     public function it_will_throw_on_unsupported_symbol()
     {
         $this->expectException(BadOperationException::class);
         $this->expectExceptionMessage("Token 'a' cannot be part of expression");
 
         $this->algorithm->evaluate("a * 56");
+    }
+
+    /**
+     * @test
+     */
+    public function it_will_just_return_input_on_no_operators_specified()
+    {
+        $this->assertEquals(134.5, $this->algorithm->evaluate("134.5"));
     }
 
     public function simpleOperationsProvider(): array
