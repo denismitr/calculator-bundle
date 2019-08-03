@@ -8,7 +8,7 @@ use Denismitr\CalculatorBundle\Exceptions\UnsupportedOperationException;
 use SplStack as Stack;
 
 
-class DijkstraTwoStackAlgorithm implements Evaluator
+final class DijkstraTwoStackAlgorithm implements Evaluator
 {
     /**
      * Operators stack

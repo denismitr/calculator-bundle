@@ -1,7 +1,7 @@
 {
     "name": "denismitr/calculator-bundle",
     "description": "Calculator Bundle",
-    "type": "library",
+    "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
         {
@@ -11,10 +11,10 @@
     ],
     "require": {
         "php": "^7.2.9",
-        "ext-ds": "*"
+        "symfony/framework-bundle": "^4.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.5|^8.0"
+        "symfony/phpunit-bridge": "^4.3"
     },
     "autoload": {
         "psr-4": {
@@ -26,7 +26,9 @@
             "Denismitr\\CalculatorBundle\\Tests\\": "tests/"
         }
     },
-    "minimum-stability": "dev",
+    "scripts": {
+        "test": "./vendor/bin/simple-phpunit"
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "0.1-dev"

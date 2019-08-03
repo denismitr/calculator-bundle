@@ -5,16 +5,17 @@
          backupGlobals="false"
          colors="true"
          bootstrap="vendor/autoload.php"
-         failOnRisky="true"
-         failOnWarning="true"
+         failOnRisky="false"
+         failOnWarning="false"
 >
     <php>
         <ini name="error_reporting" value="-1" />
+        <ini name="memory_limit" value="-1" />
     </php>
 
     <testsuites>
         <testsuite name="Symfony Calculator Bundle Test Suite">
-            <directory>./tests/</directory>
+            <directory suffix="Test.php">./tests/</directory>
         </testsuite>
     </testsuites>
 
@@ -22,6 +23,7 @@
         <whitelist>
             <directory>./src</directory>
             <exclude>
+                <directory>./src/Resources</directory>
                 <directory>./vendor</directory>
                 <directory>./tests</directory>
             </exclude>
