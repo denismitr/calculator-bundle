@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Denismitr\CalculatorBundle\Exceptions;
 
+use Exception;
 
-class UnsupportedOperationException extends \RuntimeException
+class BadOperationException extends Exception
 {
     /**
      * @param string $message
-     * @return UnsupportedOperationException
+     * @return BadOperationException
      */
     public static function because(string $message): self
     {

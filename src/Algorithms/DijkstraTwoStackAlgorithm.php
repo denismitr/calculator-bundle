@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Denismitr\CalculatorBundle\Algorithms;
 
-use Denismitr\CalculatorBundle\Exceptions\UnsupportedOperationException;
+
+use Denismitr\CalculatorBundle\Exceptions\BadOperationException;
 use SplStack as Stack;
 
 
@@ -26,6 +27,7 @@ final class DijkstraTwoStackAlgorithm implements Evaluator
     /**
      * @param string $expression
      * @return float
+     * @throws BadOperationException
      */
     public function evaluate(string $expression): float
     {
@@ -34,7 +36,16 @@ final class DijkstraTwoStackAlgorithm implements Evaluator
         $tokens = $this->parseString($expression);
 
         foreach ($tokens as $token) {
-            is_numeric($token) ? $this->values->push(floatval($token)) : $this->operators->push($token);
+            if (is_numeric($token)) {
+                $this->values->push(floatval($token));
+                continue;
+            }
+
+            if ( ! $this->isLegalOperator($token)) {
+                throw BadOperationException::because("Token '{$token}' cannot be part of expression");
+            }
+
+            $this->operators->push($token);
         }
 
         $this->apply();
@@ -71,6 +82,7 @@ final class DijkstraTwoStackAlgorithm implements Evaluator
      * @param float $right
      * @param string $operator
      * @return float
+     * @throws BadOperationException
      */
     private function combine(float $left, float $right, string $operator): float
     {
@@ -82,9 +94,13 @@ final class DijkstraTwoStackAlgorithm implements Evaluator
             case '*':
                 return $left * $right;
             case '/':
+                if ($right == 0) {
+                    throw BadOperationException::because("Divisions by zero: {$left} / {$right}");
+                }
+
                 return $left / $right;
             default:
-                throw new UnsupportedOperationException("Operator {$operator} is not supported");
+                throw BadOperationException::because("Operator {$operator} is not supported");
         }
     }
 
@@ -114,6 +130,15 @@ final class DijkstraTwoStackAlgorithm implements Evaluator
     private function nextOperatorIsSubtraction(): bool
     {
         return !$this->operators->isEmpty() && $this->operators->top() === '-';
+    }
+
+    /**
+     * @param string $operator
+     * @return bool
+     */
+    private function isLegalOperator(string $operator): bool
+    {
+        return in_array($operator, ['*', '/', '-', '+']);
     }
 
     private function initialize(): void
