@@ -124,9 +124,11 @@ final class DijkstraTwoStackAlgorithm implements Evaluator
      */
     private function nextOperatorHasHigherPriority(string $operator): bool
     {
-        if ($operator === '/' || $operator === '*') return false;
+        if ($this->operators->isEmpty()) return false;
 
-        return !$this->operators->isEmpty() && ($this->operators->top() === '*' || $this->operators->top() === '/');
+        if ($this->operators->top() === '/') return true;
+
+        return $this->operators->top() === '*' && $operator !== '/';
     }
 
     /**
