@@ -1,4 +1,5 @@
 # Calculator Bundle
+[![Build Status](https://travis-ci.org/denismitr/calculator-bundle.svg?branch=master)](https://travis-ci.org/denismitr/calculator-bundle)
 
 ### Installation
 ```bash
